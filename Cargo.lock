@@ -213,8 +213,6 @@ checksum = "dd8b5dd2ae5ed71462c540258bedcb51965123ad7e7ccf4b9a8cafaa4a63576d"
 [[package]]
 name = "ort"
 version = "1.15.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c5e56c9c4185ee949ef961aca8777d1dbd52cb104b444669adad63e8181820a7"
 dependencies = [
  "flate2",
  "half",

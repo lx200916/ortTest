@@ -2,7 +2,7 @@ use std::{io, default, array};
 use std::rc::Rc;
 use ort::sys::OrtAllocator;
 use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, OrtResult, SessionBuilder, Value, Session};
-use ort::execution_providers::NNAPIExecutionProviderOptions;
+use ort::execution_providers::{NNAPIExecutionProviderOptions, QNNExecutionProviderOptions};
 use ort::session::Input;
 use ndarray::prelude::*;
 use ndarray::Array;
@@ -49,9 +49,13 @@ fn main()-> OrtResult<()> {
     let default_number = String::from("10");
     let number = args.get(2).unwrap_or(&default_number);
     let number = number.parse::<usize>().unwrap();
+    println!("isAvailable:{}",ExecutionProvider::QNN(QNNExecutionProviderOptions::default()).is_available());
 
     let environment = Environment::builder()
         .with_name("model_test")
+        .with_execution_providers([ort::ExecutionProvider::QNN(
+            QNNExecutionProviderOptions::default()
+        )])
         // .with_execution_providers([ExecutionProvider::NNAPI(NNAPIExecutionProviderOptions{
         //     use_fp16: true,
         //     use_nchw: false,
