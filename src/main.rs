@@ -1,7 +1,7 @@
 use std::{io, default, array};
 use std::rc::Rc;
 use ort::sys::OrtAllocator;
-use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, OrtResult, SessionBuilder, Value, Session};
+use ort::{Environment, ExecutionProvider, GraphOptimizationLevel, OrtResult, SessionBuilder, Value, Session, LoggingLevel};
 use ort::execution_providers::{NNAPIExecutionProviderOptions, QNNExecutionProviderOptions};
 use ort::session::Input;
 use ndarray::prelude::*;
@@ -64,6 +64,7 @@ fn main()-> OrtResult<()> {
     println!("isAvailable:{}",ExecutionProvider::QNN(QNNExecutionProviderOptions::default()).is_available());
 
     let environment = Environment::builder()
+        .with_log_level(LoggingLevel::Verbose)
         .with_name("model_test")
         .with_execution_providers([ort::ExecutionProvider::QNN(
             QNNExecutionProviderOptions::default()
